@@ -1,0 +1,26 @@
+{
+  "name": "dsh-ui-plugin",
+  "version": "0.1.0",
+  "description": "Provider badge icon beside the composer model selector: DeepSeek whale SVG, bold GO wordmark for OpenCode Go, blocky initials otherwise. Client-only DSH plugin.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./client/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-model-selection"
+      ],
+      "platform": "web"
+    }
+  },
+  "license": "MIT"
+}

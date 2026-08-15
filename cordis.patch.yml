@@ -1,0 +1,4 @@
+# dsh bundle patch: mounts the provider-badge client plugin.
+- insert:
+    - id: provider-badge
+      name: 'dsh-ui-plugin'
