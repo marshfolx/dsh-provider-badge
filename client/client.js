@@ -1,4 +1,4 @@
-window.__ModuleLoader__.load({ id: "dsh-ui-plugin", factory: (require) => {
+window.__ModuleLoader__.load({ id: "dsh-provider-badge", factory: (require) => {
 var module = { exports: {} };
 var exports = module.exports;
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
@@ -9,9 +9,9 @@ const React = require("react");
  *
  * 永久修改：直接改下面的 TUNING_DEFAULTS，保存后刷新页面。
  * 临时实验（无需改文件）：浏览器 console 执行
- *   localStorage.setItem('dsh-ui-plugin:tuning', JSON.stringify({ iconScale: 1.1, yOffset: -1 })); location.reload();
+ *   localStorage.setItem('dsh-provider-badge:tuning', JSON.stringify({ iconScale: 1.1, yOffset: -1 })); location.reload();
  * 清空实验值：
- *   localStorage.removeItem('dsh-ui-plugin:tuning'); location.reload();
+ *   localStorage.removeItem('dsh-provider-badge:tuning'); location.reload();
  * ============================================================ */
 const TUNING_DEFAULTS = {
   iconScale: 1.2,      // 图标高度倍率（鲸鱼 13px、字母 10px 都会乘它）
@@ -22,7 +22,7 @@ const TUNING_DEFAULTS = {
 function loadTuning() {
   let overrides = null;
   try {
-    const raw = window.localStorage.getItem('dsh-ui-plugin:tuning');
+    const raw = window.localStorage.getItem('dsh-provider-badge:tuning');
     if (raw) overrides = JSON.parse(raw);
   } catch (e) { /* ignore malformed overrides */ }
   if (overrides === null || typeof overrides !== 'object' || Array.isArray(overrides)) {
@@ -124,6 +124,7 @@ function BlockyWord(props) {
 function iconFor(provider, eff) {
   const key = String(provider || '').toLowerCase();
   if (key.indexOf('deepseek') !== -1) return React.createElement(WhaleIcon, { size: Math.round(13 * eff) });
+  if (key === 'opencode' || key.indexOf('zen') !== -1) return React.createElement(BlockyWord, { word: 'ZEN', height: Math.round(10 * eff) });
   if (key.indexOf('opencode') !== -1 || key === 'go') return React.createElement(BlockyWord, { word: 'GO', height: Math.round(10 * eff) });
   const letters = String(provider || '').replace(/[^a-zA-Z]/g, '').slice(0, 2).toUpperCase();
   if (letters === '') return null;
@@ -213,7 +214,7 @@ function apply(ctx) {
   if (slots === undefined) return;
   const tuning = loadTuning();
   const tag = document.createElement('style');
-  tag.dataset.plugin = 'dsh-ui-plugin';
+  tag.dataset.plugin = 'dsh-provider-badge';
   tag.textContent = '.prvd-badge{display:inline-flex;align-items:center;justify-content:flex-end;width:15px;height:22px;color:' + tuning.color + ';flex:none;padding:0 1px}';
   document.head.append(tag);
   ctx.effect(() => () => tag.remove(), 'provider-badge: styles');

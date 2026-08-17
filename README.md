@@ -1,9 +1,10 @@
-# dsh-ui-plugin
+# dsh-provider-badge
 
 DSH 静态客户端插件：在输入框模型选择器旁显示当前 provider 图标。
 
 - **DeepSeek**（provider 名含 `deepseek`）→ 鲸鱼 SVG
-- **OpenCode Go**（provider 名含 `opencode` 或为 `go`）→ 加粗连笔 "GO" 字标
+- **OpenCode Go**（provider 名含 `opencode`，如 `opencode-go`；或为 `go`）→ 加粗连笔 "GO" 字标
+- **OpenCode Zen**（provider 名恰好为 `opencode`，或含 `zen`）→ 加粗连笔 "ZEN" 字标
 - **其他 provider** → 点阵首字母
 
 图标订阅模型选择插件自己的 per-session store（`modelDirectories`），切模型即时更新；并按 composer 工具行高度等比自适应（DPI/缩放与行高变化都会跟随）。
@@ -14,11 +15,11 @@ DSH 静态客户端插件：在输入框模型选择器旁显示当前 provider 
 
 ```json
 "dependencies": {
-  "dsh-ui-plugin": "file:<本仓库绝对路径>"
+  "dsh-provider-badge": "file:<本仓库绝对路径>"
 }
 ```
 
-并把 `"dsh-ui-plugin"` 加入 `dsh.profile.bundles` 数组。
+并把 `"dsh-provider-badge"` 加入 `dsh.profile.bundles` 数组。
 
 2. 在 profile 目录执行 `npm install`。
 3. 重启 DSH。
@@ -36,14 +37,14 @@ DSH 静态客户端插件：在输入框模型选择器旁显示当前 provider 
 **临时实验（不改文件）**：浏览器 DevTools console 执行：
 
 ```js
-localStorage.setItem('dsh-ui-plugin:tuning', JSON.stringify({ iconScale: 1.1, yOffset: -1 }));
+localStorage.setItem('dsh-provider-badge:tuning', JSON.stringify({ iconScale: 1.1, yOffset: -1 }));
 location.reload();
 ```
 
 清空实验值：
 
 ```js
-localStorage.removeItem('dsh-ui-plugin:tuning');
+localStorage.removeItem('dsh-provider-badge:tuning');
 location.reload();
 ```
 

@@ -1,5 +1,5 @@
 {
-  "name": "dsh-ui-plugin",
+  "name": "dsh-provider-badge",
   "version": "0.1.0",
   "description": "Provider badge icon beside the composer model selector: DeepSeek whale SVG, bold GO wordmark for OpenCode Go, blocky initials otherwise. Client-only DSH plugin.",
   "type": "module",
