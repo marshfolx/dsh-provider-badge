@@ -1,12 +1,18 @@
 {
   "name": "dsh-provider-badge",
   "version": "0.1.0",
-  "description": "Provider badge icon beside the composer model selector: DeepSeek whale SVG, bold GO wordmark for OpenCode Go, blocky initials otherwise. Client-only DSH plugin.",
+  "description": "Provider badge icon beside the composer model selector: DeepSeek whale SVG, bold GO/ZEN wordmarks for OpenCode Go/Zen, blocky initials otherwise. Client-only DSH plugin. · DSH 客户端插件：在模型选择器旁显示当前 provider 图标（DeepSeek 鲸鱼 / OpenCode GO·ZEN 字标）。",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
-    ".": "./lib/index.js",
-    "./client": "./client/client.js",
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./client/client.js"
+    },
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./package.json": "./package.json"
   },
@@ -21,6 +27,42 @@
       ],
       "platform": "web"
     }
+  },
+  "files": [
+    "lib",
+    "client",
+    "cordis.patch.yml",
+    "dsh.plugin.json",
+    "LICENSE",
+    "README.md",
+    "README.zh.md"
+  ],
+  "scripts": {
+    "check": "node --check lib/index.js && node --check client/client.js"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-client-runtime": "*",
+    "@deepseek-ai/dsh-client-ui-model-selection": "*",
+    "react": "^18.2.0"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": { "optional": true },
+    "@deepseek-ai/dsh-client-runtime": { "optional": true },
+    "@deepseek-ai/dsh-client-ui-model-selection": { "optional": true },
+    "react": { "optional": true }
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek",
+    "deepseek-harness",
+    "provider",
+    "badge"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "license": "MIT"
 }

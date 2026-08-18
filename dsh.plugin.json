@@ -1,0 +1,12 @@
+{
+  "name": "dsh-provider-badge",
+  "description": "Provider badge icon beside the composer model selector (DeepSeek whale / OpenCode GO·ZEN wordmarks)",
+  "version": "0.1.0",
+  "entry": {
+    "name": "provider-badge",
+    "inject": []
+  },
+  "client": {
+    "platform": "web"
+  }
+}
