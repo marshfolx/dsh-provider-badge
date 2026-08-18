@@ -1,5 +1,7 @@
 # dsh-provider-badge
 
+![image-20260819024142969](pics/README.zh/image-20260819024142969.png)
+
 DSH 静态客户端插件：在输入框模型选择器旁显示当前 provider 图标。
 
 - **DeepSeek**（provider 名含 `deepseek`）→ 鲸鱼 SVG
@@ -7,24 +9,27 @@ DSH 静态客户端插件：在输入框模型选择器旁显示当前 provider 
 - **OpenCode Zen**（provider 名恰好为 `opencode`，或含 `zen`）→ 加粗连笔 "ZEN" 字标
 - **其他 provider** → 点阵首字母
 
-图标订阅模型选择插件自己的 per-session store（`modelDirectories`），切模型即时更新；并按 composer 工具行高度等比自适应（DPI/缩放与行高变化都会跟随）。
+图标订阅了“模型选择插件”自己的 per-session store（`modelDirectories`），切模型即时更新；并按 composer 工具行高度等比自适应（DPI/缩放与行高变化都会跟随）。
 
 ## 安装
 
-1. 在 DSH profile 的 `package.json` 里添加：
+GitHub 安装：
+
+```bash
+dsh plugin --profile <profile 名> add github:marshfolx/dsh-provider-badge#main
+```
+
+该命令会把插件写入 profile 的 `package.json`（dependencies 与 `dsh.profile.bundles`）并完成安装，重启 DSH 后生效。
+
+手动方式等价：在 profile 的 `package.json` 里添加
 
 ```json
 "dependencies": {
-  "dsh-provider-badge": "file:<本仓库绝对路径>"
+  "dsh-provider-badge": "github:marshfolx/dsh-provider-badge#main"
 }
 ```
 
-并把 `"dsh-provider-badge"` 加入 `dsh.profile.bundles` 数组。
-
-2. 在 profile 目录执行 `npm install`。
-3. 重启 DSH。
-
-（发布到 GitHub/npm 后，也可以用 `dsh plugin --profile web add dsh-provider-badge` 或 `github:<owner>/dsh-provider-badge` 安装。）
+并把 `"dsh-provider-badge"` 追加到 `dsh.profile.bundles`，然后在 profile 目录执行 `pnpm install`，重启 DSH。
 
 ## 微调（改完刷新页面即可，不实时也没关系）
 
@@ -56,23 +61,5 @@ location.reload();
 
 - `cordis.patch.yml` — 组合插入行（`provider-badge`）
 - `dsh.plugin.json` — 插件元数据清单
-- `lib/index.js` — host 半（空实现，本插件纯客户端）
-- `client/client.js` — 浏览器半（`window.__ModuleLoader__.load` 注册，零构建、零依赖）
-
-## 发布
-
-本插件零构建（手写 bundle，产物直接入库），发布只需要两件事：
-
-```bash
-# 1. 打 git tag（可选但推荐：github 渠道按 commit 检测更新，tag 用于 pin 版本）
-git tag v0.1.0
-git push origin v0.1.0
-
-# 2. 发布到 npm（可选：市场优先用 npm tarball，安装更快、更新按版本检测）
-npm publish
-```
-
-- GitHub 仓库是基础分发渠道（`github:<owner>/dsh-provider-badge` 可直接安装）。
-- npm 发布可选但推荐：dshmarket 安装时"优先 npm tarball"，且更新检测走 npm `latest` dist-tag。
-- 想在插件市场（awesome-dsh-plugin.com）被搜到，还需要把仓库提交到该站点的收录清单（仓库 + npm 映射由站点 curator 维护）。
-- `repository` 字段：发布前记得在 `package.json` 里补上你的 GitHub 仓库地址。
+- `lib/index.js` — host half（空实现，本插件纯客户端）
+- `client/client.js` — 浏览器half（`window.__ModuleLoader__.load` 注册，零构建、零依赖）

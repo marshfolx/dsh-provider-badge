@@ -1,5 +1,7 @@
 # dsh-provider-badge
 
+![image-20260819024142969](pics/README.zh/image-20260819024142969.png)
+
 A client-only DSH plugin: shows the current model provider icon beside the composer model selector.
 
 - **DeepSeek** (provider contains `deepseek`) → whale SVG
@@ -11,17 +13,23 @@ The badge subscribes to the model-selection plugin's per-session store (`modelDi
 
 ## Install
 
-Add to the DSH profile's `package.json`:
+Install from GitHub (requires DSH):
+
+```bash
+dsh plugin --profile <profile> add github:marshfolx/dsh-provider-badge#main
+```
+
+This adds the plugin to the profile's `package.json` (`dependencies` + `dsh.profile.bundles`) and installs it. Restart DSH afterwards.
+
+Manual equivalent — in the profile's `package.json`:
 
 ```json
 "dependencies": {
-  "dsh-provider-badge": "file:<absolute path to this repo>"
+  "dsh-provider-badge": "github:marshfolx/dsh-provider-badge#main"
 }
 ```
 
-and append `"dsh-provider-badge"` to `dsh.profile.bundles`. Then run `npm install` in the profile directory and restart DSH.
-
-(Once published, `dsh plugin --profile web add dsh-provider-badge` or `github:<owner>/dsh-provider-badge` also works.)
+append `"dsh-provider-badge"` to `dsh.profile.bundles`, then run `pnpm install` in the profile directory and restart DSH.
 
 ## Tuning (edit + refresh; no live reload needed)
 
@@ -50,21 +58,3 @@ After editing `client/client.js`, refresh the page (hard refresh Ctrl+F5 if cach
 - `dsh.plugin.json` — plugin manifest metadata
 - `lib/index.js` — host half (empty; client-only plugin)
 - `client/client.js` — browser half (`window.__ModuleLoader__.load` registration; zero build, zero deps)
-
-## Releasing
-
-The plugin is zero-build (hand-written bundle, artifacts committed), so releasing is just:
-
-```bash
-# 1. git tag (optional but recommended: GitHub installs detect updates by commit; tags pin versions)
-git tag v0.1.0
-git push origin v0.1.0
-
-# 2. npm publish (optional but recommended: the market prefers npm tarballs and tracks updates by the npm latest dist-tag)
-npm publish
-```
-
-- The GitHub repo is the base distribution channel (`github:<owner>/dsh-provider-badge` installs directly).
-- npm publishing is optional but recommended: dshmarket installs prefer npm tarballs, and update detection uses the npm `latest` dist-tag.
-- To be discoverable in the plugin market (awesome-dsh-plugin.com), the repo must be submitted to their curated registry (repo + npm mapping maintained by the site).
-- Remember to fill in the `repository` field in `package.json` with your GitHub URL before publishing.
