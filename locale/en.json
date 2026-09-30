@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Provider badge",
+    "description": "Shows the current model provider's icon beside the composer model selector."
+  }
+}

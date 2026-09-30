@@ -229,7 +229,14 @@ function apply(ctx) {
 }
 
 exports.apply = apply;
-exports.inject = ['slots'];
+// Both services are hard requirements: `slots` is the registry this cell lands
+// in, and `modelDirectories` is the per-session directory the badge reads.
+// Declaring both means apply runs only once each exists, so the badge can never
+// silently no-op because it started before the service was provided.
+exports.inject = ['slots', 'modelDirectories'];
+// Names this Client fiber: slot diagnostics report `registrant` as
+// `options.registrant ?? fiber.name`, and no shipped Client bundle sets it, so
+// it only makes the occupant readable in `Slots.listSubTree`.
 exports.name = 'provider-badge';
 return module.exports;
 }});

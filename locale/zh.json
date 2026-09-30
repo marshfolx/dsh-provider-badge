@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Provider 图标",
+    "description": "在输入框的模型选择器旁显示当前模型 provider 的图标。"
+  }
+}
